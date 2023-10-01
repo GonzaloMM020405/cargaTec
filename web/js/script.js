@@ -1,8 +1,10 @@
-function showPhrase(){
-    var person=prompt("¿Cuál es tu nombre?", "Escribe tu nombre");
-    
-    if (person != null){
-        document.getElementById("bienvenida").innerHTML = "¡Bienvenido a la región de Alola, entrenador " +
-        person + "! Gracias por Ingresar a mi página";
-    }
-}
+document.addEventListener("DOMContentLoaded", function () {
+    var btnCancelar = document.getElementById("btnCancelar");
+    var txtUsuario = document.getElementById("txtUsuario");
+    var txtPwd = document.getElementById("txtPwd");
+
+    btnCancelar.addEventListener("click", function () {
+        txtUsuario.value = "";
+        txtPwd.value = "";
+    });
+});
