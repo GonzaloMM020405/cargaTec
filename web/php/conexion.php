@@ -1,7 +1,7 @@
 <?php
 
 $host   = "localhost"; //se define la variable host con el nombre del servidor de la base de datos, en este caso localhost
-$dbuser = "root"; //se define la variable $dbuser con el nombre del usuario de la base de datos que se utilizara para conectarse
+$dbuser = "admincargatec"; //se define la variable $dbuser con el nombre del usuario de la base de datos que se utilizara para conectarse
 $dbpass = ""; //se defina la variable $dbpass con la contraseña del usuairo de la base de datos que se utilizará para conectarse, en este caso root
 $db     = "cargatec"; //se define la variable $db con el nombre de la base de datos que se va a utilizar
 

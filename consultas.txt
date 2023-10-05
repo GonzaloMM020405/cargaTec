@@ -184,3 +184,4 @@ INSERT INTO salon VALUES
 ('ED3', 'Campus Boillot'),
 ('AV1', 'Campus Boillot'),
 ('AV2', 'Campus Boillot');
+
