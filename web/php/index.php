@@ -1,18 +1,28 @@
 <?php
-    session_start();
-    if(empty($_SESSION['usr'])){
-        echo "Debe autentificarse";
-    }
+    include_once 'conexion.php';
+    if(!$_SESSION['num_Control']){
+        //encabezado de redirección
+        header("location:autentica.php");
+        die;
+     }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>CargaTec</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../CSS/style.css">
     </head>
     <body>
-        <p>Bienvenido a CargaTec!</p>
+    <header>
+        <div class="cargatec">            
+            <img src="../media/donkey.png" style="height:100px;display:flex;text-align:left;">
+            CargaTec
+        </div>
+        <div class="logotec">
+            <img src="../media/logotec-removebg-preview.png" style="height:100px;display:flex;">
+        </div>  
+    </header>
         <script src="../js/script.js"></script>
     </body>
 </html>
