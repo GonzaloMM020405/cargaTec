@@ -20,7 +20,7 @@ if(isset($_POST["btnEnviar"])) //Comprueba si el botón de envío de formulario 
 
     if($_usr == $usr and $_pwd == $pwd) //Comprueba si los datos proporcionados por el usuario coinciden con los datos almacenados en la base de datos
     {
-        $_SESSION['num_Control'] = $usr; //si los dato son correctos, inicia una sesion de PHP y almacena el nombre de usuario en la variable de sesion usr
+        $_SESSION['num_Control'] = true; //si los dato son correctos, inicia una sesion de PHP y almacena el nombre de usuario en la variable de sesion usr
 ?>
         <script type='text/javascript'>
             window.location.href="index.php"; //Redirige al usuario a la pagina index.php usando js
