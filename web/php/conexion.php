@@ -1,6 +1,4 @@
 <?php
-class Conexion{
-    public static function Conectar(){
     $host   = "localhost"; //se define la variable host con el nombre del servidor de la base de datos, en este caso localhost
     $dbuser = "admincargatec"; //se define la variable $dbuser con el nombre del usuario de la base de datos que se utilizara para conectarse
     $dbpass = ""; //se defina la variable $dbpass con la contraseña del usuairo de la base de datos que se utilizará para conectarse, en este caso root
@@ -13,7 +11,4 @@ class Conexion{
     }
 
     mysqli_select_db($link, 'cargatec') or die('No se puede abrir la estructura de BD'.mysqli_connect_error()); //seleccioa la base de datos 'usuariosbd'para que las consultas posteriores se realicen en esta base de datosy ejecuta el texto en caso de error
-
-    }
-}
 ?>

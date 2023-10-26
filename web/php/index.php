@@ -1,11 +1,3 @@
-<?php
-    include_once 'conexion.php';
-    if(!$_SESSION['num_Control']){
-        //encabezado de redirección
-        header("location:autentica.php");
-        die;
-     }
-?>
 <!DOCTYPE html>
 <html>
     <head>
