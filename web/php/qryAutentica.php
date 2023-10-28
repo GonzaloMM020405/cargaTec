@@ -22,7 +22,7 @@ if(isset($_POST["btnEnviar"])) {
                 $_SESSION['tipo'] = 0; // Administrador
 ?>
                 <script type='text/javascript'>
-                     window.location.href="indexAdmin.php"; //Redirige al usuario a la pagina index.php usando js
+                     window.location.href="admin.php"; //Redirige al usuario a la pagina index.php usando js
                 </script>
 <?php
             exit();

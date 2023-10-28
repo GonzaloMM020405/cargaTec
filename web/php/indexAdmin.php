@@ -13,23 +13,26 @@
     <h1>Géneros</h1>
     <!-- Formulario para insertar género -->
     <form method="post" action="tablaGenero.php" id="insertar-form">
-        <label for="id_genero">ID del Género:</label>
-        <input type="text" id="id_genero" name="id_genero" required>
-        <label for="nombre_genero">Nombre del Género:</label>
-        <input type="text" id="nombre_genero" name="nombre_genero" required>
+        <label for="id_genero">ID del Género (Un carácter máximo):</label>
+        <input type="text" id="id_genero" name="id_genero" required maxlength="1">
+        <label for="nombre_genero_edit">Nombre del Género (Máximo 20 caracteres):</label>
+        <input type="text" id="nombre_genero" name="nombre_genero" required required maxlength="20">
         <button type="submit">Insertar</button>
         <button type="button" onclick="limpiarCampos()">Cancelar</button>
     </form>
 
+
     <!-- Formulario para editar género (inicialmente oculto) -->
     <form method="post" action="procesarEdicionGenero.php" id="editar-form" style="display: none;">
-        <label for="id_genero_edit">ID del Género:</label>
-        <input type="text" id="id_genero_edit" name="id_genero" readonly>
-        <label for="nombre_genero_edit">Nombre del Género:</label>
-        <input type="text" id="nombre_genero_edit" name="nombre_genero" required>
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="limpiarCampos()">Cancelar</button>
-    </form>
+    <label for="id_genero_edit">ID del Género:</label>
+    <input type="text" id="id_genero_edit" name="id_genero" readonly>
+    <label for="nombre_genero_edit">Nombre del Género (Máximo 20 caracteres):</label>
+    <input type="text" id="nombre_genero_edit" name="nombre_genero" required maxlength="20">
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="limpiarCampos()">Cancelar</button>
+</form>
+
+
 
     <div id="error-message" class="error"></div>
 
@@ -54,8 +57,8 @@
         echo '<td>' . $genero['id_genero'] . '</td>';
         echo '<td>' . $genero['genero'] . '</td>';
         echo '<td>
-                <a href="eliminarGenero.php?id=' . $genero['id_genero'] . '">Eliminar</a>
-                <a href="javascript:editarGenero(\'' . $genero['id_genero'] . '\', \'' . $genero['genero'] . '\')">Editar</a>
+                <a href="eliminarGenero.php?id_genero=' . $genero['id_genero'] . '">Eliminar</a>
+                <a href="javascript:editarGenero(\'' . $genero['id_genero'] . '\', \'' . $genero['genero'] . '\')">Seleccionar</a>
             </td>';
         echo '</tr>';
     }
@@ -64,14 +67,14 @@
 
     <!-- Formulario para ingresar un número manualmente -->
     <form method="post" action="javascript:cargarDatosManual()" id="manual-form">
-        <label for="manual_id_genero">Editar Género (ID Manual):</label>
+        <label for="manual_id_genero">Editar Género (Ingresa el ID)</label>
         <input type="text" id="manual_id_genero" name="manual_id_genero">
         <button type="button" onclick="cargarDatosManual()">Editar</button>
     </form>
 
     <!-- Formulario para eliminar un género manualmente -->
     <form method="post" action="javascript:eliminarGeneroManual()" id="eliminar-manual-form">
-        <label for="manual_id_genero_eliminar">Eliminar Género (ID Manual):</label>
+        <label for="manual_id_genero_eliminar">Eliminar Género (Ingresa el ID)</label>
         <input type="text" id="manual_id_genero_eliminar" name="manual_id_genero_eliminar">
         <button type="button" onclick="eliminarGeneroManual()">Eliminar</button>
     </form>
