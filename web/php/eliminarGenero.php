@@ -1,8 +1,8 @@
 <?php
 include 'conexion.php';
 
-if ($_GET['id']) {
-    $idGenero = $_GET['id'];
+if ($_GET['id_genero']) {
+    $idGenero = $_GET['id_genero'];
 
     // Realizar la eliminación del registro en la base de datos
     $sql = "DELETE FROM generos WHERE id_genero = '$idGenero'";
