@@ -1,10 +1,10 @@
 <?php
-    include_once 'conexion.php';
-    if(!$_SESSION['num_Control']){
-        //encabezado de redirección
-        header("location:autentica.php");
-        die;
-     }
+session_start();
+
+if (!isset($_SESSION['num_Control'])) {
+    header("Location: autentica.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
