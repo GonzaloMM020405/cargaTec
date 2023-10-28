@@ -11,4 +11,17 @@
     }
 
     mysqli_select_db($link, 'cargatec') or die('No se puede abrir la estructura de BD'.mysqli_connect_error()); //seleccioa la base de datos 'usuariosbd'para que las consultas posteriores se realicen en esta base de datosy ejecuta el texto en caso de error
+    function obtenerGeneros() {
+        global $link;
+    
+        $query = "SELECT id_genero, genero FROM generos";
+        $result = mysqli_query($link, $query);
+    
+        $generos = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $generos[] = $row;
+        }
+    
+        return $generos;
+    }
 ?>

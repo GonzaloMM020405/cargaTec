@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['num_Control'])) {
+    header("Location: autentica.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>

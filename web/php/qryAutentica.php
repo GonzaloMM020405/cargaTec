@@ -25,6 +25,7 @@ if(isset($_POST["btnEnviar"])) {
                      window.location.href="indexAdmin.php"; //Redirige al usuario a la pagina index.php usando js
                 </script>
 <?php
+            exit();
 } elseif ($tipoUsuario == 1) {
                 $_SESSION['num_Control'] = true;
                 $_SESSION['tipo'] = 1; // Alumno
@@ -33,6 +34,7 @@ if(isset($_POST["btnEnviar"])) {
                      window.location.href="index.php"; //Redirige al usuario a la pagina index.php usando js
                 </script>
         <?php
+            exit();
             } else {
                 echo "Tipo de usuario no válido";
             }
