@@ -26,7 +26,7 @@ if ($_GET['id_genero']) {
 
     if (!empty($mensajeError)) {
         // Hay restricciones de clave externa, no es posible eliminar el género
-        header("Location: indexAdmin.php?error=$mensajeError");
+        header("Location: tablaGenero.php?error=$mensajeError");
         exit();
     }
 
@@ -35,7 +35,7 @@ if ($_GET['id_genero']) {
     $resultado = mysqli_query($link, $sql);
 
     if ($resultado) {
-        header("Location: indexAdmin.php");
+        header("Location: tablaGenero.php");
         exit();
     } else {
         echo "Error al eliminar el género: " . mysqli_error($link);
