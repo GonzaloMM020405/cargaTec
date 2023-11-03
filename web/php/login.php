@@ -15,7 +15,7 @@
             <img src="../media/logotec-removebg-preview.png" style="height:100px;display:flex;">
         </div>  
 </header>
-<form id="frmAutentica" name="frmAutentica" action="../php/qryAutentica.php" method="post">
+<form id="frmAutentica" name="frmAutentica" action="../php/qryLogin.php" method="post">
     <div class="recuadroIngreso">
         <div class="ingreso">
             <table align="center" border="1" style="background-color: rgba(255, 255, 255, 0.845);">

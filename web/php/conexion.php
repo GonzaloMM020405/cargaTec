@@ -24,4 +24,30 @@
     
         return $generos;
     }
+    function obtenerPeriodos() {
+        global $link;
+
+        $query = "SELECT id_periodo, periodo FROM periodo";
+        $result = mysqli_query($link, $query);
+
+        $periodos = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $periodos[] = $row;
+        }
+
+        return $periodos;
+    }
+    function obtenerEstados() {
+        global $link;
+
+        $query = "SELECT id_estado, estadoCivil FROM estadocivil";
+        $result = mysqli_query($link, $query);
+
+        $estados = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $estados[] = $row;
+        }
+
+        return $estados;
+    }
 ?>

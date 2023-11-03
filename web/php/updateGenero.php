@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $resultado = mysqli_query($link, $sql);
 
     if ($resultado) {
-        header("Location: indexAdmin.php");
+        header("Location: tablaGenero.php");
         exit();
     } else {
         echo "Error al actualizar el género: " . mysqli_error($link);
