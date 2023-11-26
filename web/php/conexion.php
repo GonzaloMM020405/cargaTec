@@ -10,7 +10,25 @@
         echo "<script>alert('No se pudo conectar con la base de datos.');</script>";
     }
 
+
+    
+
     mysqli_select_db($link, 'cargatec') or die('No se puede abrir la estructura de BD'.mysqli_connect_error()); //seleccioa la base de datos 'usuariosbd'para que las consultas posteriores se realicen en esta base de datosy ejecuta el texto en caso de error
+   
+    function obtenerAlumnos() {
+        global $link;
+    
+        $query = "SELECT * FROM alumnos"; 
+        $result = mysqli_query($link, $query);
+    
+        $alumnos = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $alumnos[] = $row;
+        }
+    
+        return $alumnos;
+    }
+       
     function obtenerGeneros() {
         global $link;
     
@@ -49,5 +67,18 @@
         }
 
         return $estados;
+    }
+    function obtenerCarreras() {
+        global $link;
+    
+        $query = "SELECT id_carrera, nombre_c FROM carrera";
+        $result = mysqli_query($link, $query);
+    
+        $carreras = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $carreras[] = $row;
+        }
+    
+        return $carreras;
     }
 ?>

@@ -11,5 +11,7 @@
     <button type="button" onclick="window.location.href = 'tablaEstado.php'">Modificar la tabla Estado Civíl</button>
     <br>
     <button type="button" onclick="window.location.href = 'tablaPeriodo.php'">Modificar la tabla Periodos</button>
+    <br>
+    <button type="button" onclick="window.location.href = 'tablaAlumnos.php'">Modificar la tabla Alumnos</button>
 </body>
 </html>
