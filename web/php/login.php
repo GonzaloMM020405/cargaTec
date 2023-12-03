@@ -9,7 +9,7 @@
 <header>
         <div class="cargatec">            
             <img src="../media/donkey.png" style="height:100px;display:flex;text-align:left;">
-            CargaTec
+            CargaTec 
         </div>
         <div class="logotec">
             <img src="../media/logotec-removebg-preview.png" style="height:100px;display:flex;">

@@ -20,9 +20,9 @@
         <input type="text" id="id_genero" name="id_genero" required maxlength="1" onchange="buscarNombreGenero()">
         <label for="nombre_genero">Nombre del Género (Máximo 20 caracteres):</label>
         <input type="text" id="nombre_genero" name="nombre_genero" required maxlength="20">
-        <button type="button" id="insertar" onclick="validarCampos('insert')">Insertar</button>
+        <button type="submit" id="insertar" onclick="validarCampos('insert')">Insertar</button>
         <button type="submit" name="accion" value="eliminar">Eliminar</button>
-        <button type="button" id="actualizar" onclick="enviarFormulario('update')">Actualizar</button>
+        <button type="submit" id="actualizar" onclick="enviarFormulario('update')">Actualizar</button>
         <button type="button" onclick="limpiarCampos()">Cancelar</button>
     </form>
 

@@ -4,45 +4,38 @@
     <meta charset="utf-8">
     <title>Insertar y Editar Periodo</title>
     <style>
-        .error {
+        .error-message {
             color: red;
+        }
+        .success-message {
+            color: green;
         }
     </style>
 </head>
 <body>
-    <h1>Periodos</h1>
+    <h1>Periodo</h1>
     <!-- Formulario para insertar periodo -->
-    <form method="post" action="insertPeriodo.php" id="insertar-form">
+    <form method="post" action="gestionPeriodo.php">
         <label for="id_periodo">ID del Periodo (Un carácter máximo):</label>
-        <input type="text" id="id_periodo" name="id_periodo" required maxlength="1">
-        <label for="nombre_periodo_edit">Nombre del Periodo (Máximo 25 caracteres de esta manera: MesInicio-MesFin Año):</label>
-        <input type="text" id="nombre_periodo" name="nombre_periodo" required required maxlength="25">
-        <button type="submit">Insertar</button>
+        <input type="text" id="id_periodo" name="id_periodo" required maxlength="1" onchange="buscarNombrePeriodo()">
+        <label for="nombre_periodo">Nombre del Periodo (Máximo 25 caracteres):</label>
+        <input type="text" id="nombre_periodo" name="nombre_periodo" required maxlength="25">
+        <button type="button" id="insertar" onclick="validarCampos('insert')">Insertar</button>
+        <button type="submit" name="accion" value="eliminar">Eliminar</button>
+        <button type="button" id="actualizar" onclick="enviarFormulario('update')">Actualizar</button>
         <button type="button" onclick="limpiarCampos()">Cancelar</button>
     </form>
 
-
-    <!-- Formulario para editar periodo (inicialmente oculto) -->
-    <form method="post" action="updatePeriodo.php" id="editar-form" style="display: none;">
-    <label for="id_periodo_edit">ID del Periodo</label>
-    <input type="text" id="id_periodo_edit" name="id_periodo" readonly>
-    <label for="nombre_periodo_edit">Nombre del Periodo (Máximo 25 caracteres de esta manera: MesInicio-MesFin Año):</label>
-    <input type="text" id="nombre_periodo_edit" name="nombre_periodo" required maxlength="25">
-    <button type="submit">Guardar</button>
-    <button type="button" onclick="limpiarCampos()">Cancelar</button>
-</form>
-
-
-
-    <div id="error-message" class="error"></div>
-
+    <div class="error-message" id="error-message"></div>
+    <div class="success-message" id="success-message"></div>
+    
     <?php
     if (isset($_GET['error'])) {
         echo '<div class="error">' . $_GET['error'] . '</div>';
     }
     ?>
 
-    <!-- Mostrar la tabla de periodos -->
+    <!-- Mostrar la tabla de periodo -->
     <table>
     <tr>
         <th>ID del Periodo</th>
@@ -58,108 +51,105 @@
         echo '<td>' . $periodo['periodo'] . '</td>';
         echo '<td>
                 <a href="deletePeriodo.php?id_periodo=' . $periodo['id_periodo'] . '">Eliminar</a>
-                <a href="javascript:editarPeriodo(\'' . $periodo['id_periodo'] . '\', \'' . $periodo['periodo'] . '\')">Seleccionar</a>
+                <a href="javascript:seleccionarPeriodo(\'' . $periodo['id_periodo'] . '\', \'' . $periodo['periodo'] . '\')">Seleccionar</a>
             </td>';
         echo '</tr>';
     }
     ?>
     </table>
-
-    <!-- Formulario para ingresar un número manualmente -->
-    <form method="post" action="javascript:cargarDatosManual()" id="manual-form">
-        <label for="manual_id_periodo">Editar Periodo (Ingresa el ID)</label>
-        <input type="text" id="manual_id_periodo" name="manual_id_periodo">
-        <button type="button" onclick="cargarDatosManual()">Editar</button>
-    </form>
-
-    <!-- Formulario para eliminar un periodo manualmente -->
-    <form method="post" action="javascript:eliminarPeriodoManual()" id="eliminar-manual-form">
-        <label for="manual_id_periodo_eliminar">Eliminar Periodo (Ingresa el ID)</label>
-        <input type="text" id="manual_id_periodo_eliminar" name="manual_id_periodo_eliminar">
-        <button type="button" onclick="eliminarPeriodoManual()">Eliminar</button>
-    </form>
-
+    <div id="message"></div>
     <button type="button" onclick="window.location.href = 'indexAdmin.php'">Salir</button>
 
 
-    <!-- Script para mostrar ventana de confirmación y eliminar periodo -->
     <script>
-        function editarPeriodo(id, nombre) {
-            // Llenar el formulario de edición con los datos del periodo seleccionado
-            document.getElementById('id_periodo_edit').value = id;
-            document.getElementById('nombre_periodo_edit').value = nombre;
-
-            // Ocultar el formulario de inserción y mostrar el formulario de edición
-            document.getElementById('insertar-form').style.display = 'none';
-            document.getElementById('editar-form').style.display = 'block';
-        }
-
-        function eliminarGenero(id, nombre) {
-            // Mostrar una ventana emergente de confirmación
-            var confirmar = confirm("¿Seguro que deseas eliminar el periodo con ID " + id + " (" + nombre + ")?");
-
-            if (confirmar) {
-                // Llenar el formulario de eliminación y enviarlo
-                document.getElementById('manual_id_periodo_eliminar').value = id;
-                document.getElementById('eliminar-manual-form').submit();
-            }
-        }
-
+        
         function limpiarCampos() {
-            // Limpiar campos de ambos formularios
-            document.getElementById('id_periodo').value = '';
-            document.getElementById('nombre_periodo').value = '';
-            document.getElementById('id_periodo_edit').value = '';
-            document.getElementById('nombre_periodo_edit').value = '';
-
-            // Ocultar el formulario de edición y mostrar el formulario de inserción
-            document.getElementById('insertar-form').style.display = 'block';
-            document.getElementById('editar-form').style.display = 'none';
-            // Limpiar el mensaje de error
-            document.getElementById('error-message').textContent = "";
+            document.getElementById("id_periodo").value = "";
+            document.getElementById("nombre_periodo").value = "";
+            document.getElementById("error-message").innerHTML = "";
+            document.getElementById("success-message").innerHTML = "";
         }
 
-        function cargarDatosManual() {
-            var manualId = document.getElementById('manual_id_periodo').value;
-            var periodoEncontrado = false;
+        function validarCampos(accion) {
+            var id_periodo = document.getElementById("id_periodo").value;
+            var nombre_periodo = document.getElementById("nombre_periodo").value;
 
-            for (var i = 0; i < <?php echo count($periodos); ?>; i++) {
-                if (<?php echo json_encode($periodos); ?>[i].id_periodo === manualId) {
-                    editarPeriodo(<?php echo json_encode($periodos); ?>[i].id_periodo, <?php echo json_encode($periodos); ?>[i].periodo);
-                    periodoEncontrado = true;
-                    break;
+            if (id_periodo === "" || nombre_periodo === "") {
+                alert("Ambos campos son obligatorios. Por favor, complete los campos vacíos.");
+                return;
+            }
+
+            enviarFormulario(accion);
+        }
+
+        function enviarFormulario(accion) {
+            var id_periodo = document.getElementById("id_periodo").value;
+            var nombre_periodo = document.getElementById("nombre_periodo").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = xhr.responseText;
+                    if (response.startsWith("Error")) {
+                        document.getElementById("error-message").innerHTML = response;
+                        document.getElementById("success-message").innerHTML = "";
+                    } else {
+                        document.getElementById("success-message").innerHTML = response;
+                        document.getElementById("error-message").innerHTML = "";
+                        // Actualizar la tabla
+                        actualizarTabla();
+                    }
                 }
-            }
+            };
 
-            if (!periodoEncontrado) {
-                document.getElementById('error-message').textContent = "El ID ingresado no existe.";
-            } else {
-                document.getElementById('error-message').textContent = "";
-            }
+            xhr.open("POST", "gestionPeriodo.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("id_periodo=" + id_periodo + "&nombre_periodo=" + nombre_periodo + "&accion=" + accion);
         }
 
-        function eliminarPeriodoManual() {
-    var idAEliminar = document.getElementById('manual_id_periodo_eliminar').value;
-    var periodoAEliminar = null;
+        function actualizarTabla() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.querySelector('table').innerHTML = xhr.responseText;
+                }
+            };
 
-    for (var i = 0; i < <?php echo count($periodos); ?>; i++) {
-        if (<?php echo json_encode($periodos); ?>[i].id_periodo === idAEliminar) {
-            periodoAEliminar = <?php echo json_encode($periodos); ?>[i].periodo;
-            break;
+            xhr.open("GET", "actualizarTabla2.php", true);
+            xhr.send();
         }
-    }
+        function buscarNombrePeriodo() {
+            var id_periodo = document.getElementById("id_periodo").value;
+            var xhr = new XMLHttpRequest();
 
-    if (periodoAEliminar) {
-        var confirmar = confirm("¿Seguro que deseas eliminar el periodo '" + periodoAEliminar + "' con ID '" + idAEliminar + "'?");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = xhr.responseText;
+                    if (response.startsWith("Error")) {
+                        document.getElementById("error-message").innerHTML = response;
+                        document.getElementById("success-message").innerHTML = "";
+                        document.getElementById("nombre_periodo").value = ""; // Limpia el campo en caso de error
+                    } else {
+                        document.getElementById("error-message").innerHTML = "";
+                        document.getElementById("success-message").innerHTML = response;
+                        document.getElementById("nombre_periodo").value = response; // Llena el campo con el nombre del periodo
+                    }
+                }
+            };
 
-        if (confirmar) {
-            // Redirigir a la página de procesamiento de eliminación con el ID del periodo
-            window.location.href = "deletePeriodo.php?id_periodo=" + idAEliminar;
+            xhr.open("POST", "actualizarCampoPeriodo.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("id_periodo=" + id_periodo);
         }
-    } else {
-        alert("El ID ingresado no existe.");
-    }
-}
+        function seleccionarPeriodo(id, nombre) {
+            // Obtener referencias a los campos del formulario
+            var idPeriodoInput = document.getElementById('id_periodo');
+            var nombrePeriodoInput = document.getElementById('nombre_periodo');
+
+            // Establecer los valores en los campos del formulario
+            idPeriodoInput.value = id;
+            nombrePeriodoInput.value = nombre;
+        }
     </script>
 </body>
 </html>

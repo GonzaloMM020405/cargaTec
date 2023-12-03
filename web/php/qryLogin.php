@@ -20,18 +20,18 @@ if(isset($_POST["btnEnviar"])) {
             if ($tipoUsuario == 0) {
                 $_SESSION['num_Control'] = true;
                 $_SESSION['tipo'] = 0; // Administrador
-?>
+                ?>
                 <script type='text/javascript'>
                      window.location.href="indexAdmin.php"; //Redirige al usuario a la pagina index.php usando js
                 </script>
 <?php
             exit();
 } elseif ($tipoUsuario == 1) {
-                $_SESSION['num_Control'] = true;
-                $_SESSION['tipo'] = 1; // Alumno
+    $_SESSION['nombre_usuario'] = $usr; // Establece la variable de sesión 'nombre_usuario'
+    $_SESSION['tipo'] = 1; // Alumno
             ?>
                 <script type='text/javascript'>
-                     window.location.href="index.php"; //Redirige al usuario a la pagina index.php usando js
+                     window.location.href="carga.php"; //Redirige al usuario a la pagina index.php usando js
                 </script>
         <?php
             exit();
