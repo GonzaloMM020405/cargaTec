@@ -72,9 +72,9 @@ $carreras = obtenerCarreras();
             ?>
         </select>
 
-        <button type="submit" id="insertar" onclick="validarCampos('insert')" >Insertar</button>
-        <button type="submit" id="eliminar" onclick="validarCampos('eliminar')">Eliminar</button>
-        <button type="submit" id="actualizar" onclick="enviarFormulario('update')">Actualizar</button>
+        <button type="button" id="insertar" onclick="validarCampos('insert')">Insertar</button>
+        <button type="button" id="eliminar" onclick="validarCampos('eliminar')">Eliminar</button>
+        <button type="button" id="actualizar" onclick="validarCampos('update')">Actualizar</button>
         <button type="button" onclick="limpiarCampos()">Cancelar</button>
     </form>
 
@@ -120,6 +120,19 @@ $carreras = obtenerCarreras();
     <div id="message"></div>
     <button type="button" onclick="window.location.href = 'indexAdmin.php'">Salir</button>
     <script>
+         // Agregar eventos al cargar la página
+            document.addEventListener('DOMContentLoaded', function () {
+                // Asignar eventos a los botones
+                document.getElementById("insertar").addEventListener("click", function () {
+                    validarCampos('insert');
+                });
+                document.getElementById("eliminar").addEventListener("click", function () {
+                    validarCampos('eliminar');
+                });
+                document.getElementById("actualizar").addEventListener("click", function () {
+                    validarCampos('update');
+                });
+            });
         function limpiarCampos() {
             document.getElementById("num_Control").value = "";
             document.getElementById("nombre_a").value = "";
@@ -226,6 +239,7 @@ $carreras = obtenerCarreras();
 
                 // Rellenar los campos del formulario con los datos obtenidos
                 document.getElementById("id_estado").value = datos.id_estado;
+                document.getElementById("id_genero").value = datos.id_genero;
                 document.getElementById("id_carrera").value = datos.id_carrera;
                 document.getElementById("nombre_a").value = datos.nombre_a;
                 document.getElementById("paterno_a").value = datos.paterno_a;

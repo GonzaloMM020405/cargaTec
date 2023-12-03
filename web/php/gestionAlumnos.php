@@ -58,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = mysqli_query($link, $sql);
 
         if ($resultado) {
-            header("Location: tablaAlumnos.php");
             exit();
         } else {
             echo "Error al eliminar el Alumno: " . mysqli_error($link);
